@@ -38,7 +38,8 @@ siblings:
 
     # topology-adaption section allows to modify the topology of the sibling
     topology-adjustments:
-      node-remove: "srl2"
+      node-remove: 
+        node-name: "srl2"
       node-add:
         srl3:
           kind: srl
@@ -69,7 +70,8 @@ siblings:
 
   security:
     topology-adjustments:
-      node-remove: "(.*)rl2"
+      node-remove: 
+        node-name: "(.*)rl2"
       node-add:
         afl:
           kind: linux
@@ -155,3 +157,19 @@ apps:
     module: "apps.ci"
   sec:
     module: "apps.sec"
+
+
+kafka:
+  host: "localhost"
+  port: 29092
+  topics:
+    num_partitions: 1
+    replication_factor: 1
+  offset:
+    reset_type: "earliest"
+
+rabbit:
+  host: "localhost"
+  port: 5672
+  username: "digsinet"
+  password: "testing123#!"
