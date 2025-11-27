@@ -1,0 +1,3 @@
+# NATS
+
+NATS calls itself to be a "simple, secure and high performance open source data layer". It emphasizes on simplicity and performance. In contrast to Kafka, it is written in the Go language, which makes it independent from the (resource heavy) JVM. Its Docker image is therefore just 22 MB compared to Kafka's 140MB. For this project, a NATS service could also be sufficient. See [this paper](https://www.utupub.fi/bitstream/handle/10024/182402/Salonen_Nino_opinnayte.pdf) comparing Kafka and NATS performance and use cases.
