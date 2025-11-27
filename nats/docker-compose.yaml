@@ -1,0 +1,14 @@
+services:
+  nats-server:
+    image: nats:2.12.2-alpine
+    container_name: nats-server
+    ports:
+      - 4222:4222 # client
+      - 6222:6222 # cluster
+      - 8222:8222 # monitoring
+    networks:
+      - nats_network
+
+networks:
+  nats_network:
+    name: nats_docker_net
