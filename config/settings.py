@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Union
 from config.kafka import KafkaSettings
 from config.rabbit import RabbitSettings
+from config.nats import NatsSettings
 import yaml
 
 
@@ -233,6 +234,7 @@ class Settings(BaseModel):
         ..., alias="interfaces"
     )
     apps: Dict[str, AppSettings]
+    nats: Optional[NatsSettings] = None
     kafka: Optional[KafkaSettings] = None
     rabbit: Optional[RabbitSettings] = None
 
@@ -248,11 +250,11 @@ def read_config(config_file: str) -> Settings:
         if validate_config(config):
             return config
         else:
-            raise Exception('configuration error: either kafka or rabbitmq settings must be provided')
+            raise Exception('configuration error: either nats, kafka or rabbitmq settings must be provided')
 
 
 def validate_config(config: Settings) -> bool:
-    if config.kafka is None and config.rabbit is None:
+    if config.kafka is None and config.rabbit is None and config.nats is None:
         return False
     else:
         return True

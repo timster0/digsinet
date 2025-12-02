@@ -6,8 +6,10 @@ import signal
 import sys
 import importlib
 import logging
+from event.eventbroker import EventBroker
 from event.kafka import KafkaClient
 from event.rabbit import RabbitClient
+from event.nats import NatsClient
 
 import yaml
 
@@ -88,7 +90,9 @@ def main():
         deploy_topology(reconfigure_containers, config)
 
         broker = create_kafka_queues(config.siblings, config.kafka) if config.kafka is not None\
-            else create_rabbit_queues(config.siblings, config.rabbit)
+            else create_rabbit_queues(config.siblings, config.rabbit) if config.rabbit is not None\
+            else create_nats_queues(config.siblings, config.nats) if config.nats is not None\
+            else None
 
         siblings = create_siblings(
             config.siblings,
@@ -173,6 +177,15 @@ def create_kafka_queues(siblings, stream_config):
         queue_names.append(sibling)
     queue_names.append("realnet")
     client = KafkaClient(stream_config, queue_names, logger)
+    return client
+
+def create_nats_queues(siblings, stream_config):
+    # TODO Implement NATS queues
+    queue_names = []
+    for sibling in siblings:
+        queue_names.append(sibling)
+    queue_names.append("realnet")
+    client = NatsClient(stream_config, queue_names, logger)
     return client
 
 
