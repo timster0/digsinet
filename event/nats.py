@@ -45,3 +45,27 @@ class NatsClient(EventBroker):
 
     def get_sibling_channels(self):
         return self.subjects
+    
+    def close(self):
+        # Unsubscribe from all subjects
+        for (subject, subscriber) in self.subscribers:
+            self.close_consumer(subject, subscriber)
+        self.logger.info("All NATS subscribers closed")
+        # Delete all subjects
+        del self.subjects
+        self.logger.info("Closing all NATS subjects")
+        # Shut down client
+        self.client._nc.flush()
+        self.client._nc.close()
+        self.logger.info("Closed NATS client")            
+
+    def close_consumer(self, key: str):
+        if key in self.subscribers.keys():
+            self.subscribers[key].unsubscribe()
+            self.logger.info(f"Subscriber for NATS subject {key} closed.")
+            del self.subscribers[key]
+        else:
+            self.logger.warning(f"Unable to close subscriber for NATS subject {key}: Subscriber not found")
+
+    def new_sibling_channel(self, channel: str):
+        pass
