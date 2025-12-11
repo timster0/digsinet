@@ -22,7 +22,7 @@ class NatsClient(EventBroker):
             self.logger.warning(f"NATS subject {channel} is an unknown subject")
         serialized_data: str = json.dumps(data, default=lambda x: "<not serializable>")
         self.logger.info(f"Publishing message to NATS subject {channel}: {serialized_data}")
-        self.client.publish(channel, serialized_data)
+        self.client.publish(channel, bytes(serialized_data, 'utf-8'))
 
     def poll(self, consumer: NATSSub, timeout) -> Optional[Message]:
         try:
@@ -42,6 +42,7 @@ class NatsClient(EventBroker):
             self.logger.info(f"Subscribed to NATS subject {channel}")
         else:
             self.logger.warning(f"Tried to subscribe to NATS subject with active subscription: {channel}")
+        return self.subscribers[channel], channel
 
     def get_sibling_channels(self):
         return self.subjects
