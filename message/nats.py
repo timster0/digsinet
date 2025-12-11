@@ -5,7 +5,10 @@ class NatsMessage(Message):
         self._message = message
 
     def error(self):
-        pass  # TODO: Implement error handling if applicable
+        if self._message:
+            return None
+        else:
+            return "NATS Message Error"
 
     def value(self):
         return self._message
