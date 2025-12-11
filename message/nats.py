@@ -8,4 +8,4 @@ class NatsMessage(Message):
         pass  # TODO: Implement error handling if applicable
 
     def value(self):
-        pass # TODO: Adjust decoding as necessary
+        return self._message

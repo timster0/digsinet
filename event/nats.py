@@ -67,5 +67,6 @@ class NatsClient(EventBroker):
         else:
             self.logger.warning(f"Unable to close subscriber for NATS subject {key}: Subscriber not found")
 
+    # This method is not used publicly
     def new_sibling_channel(self, channel: str):
         pass
