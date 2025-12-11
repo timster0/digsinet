@@ -28,12 +28,12 @@ class NatsClient(EventBroker):
         try:
             # Returns a NATS Msg Object, which is wrapped
             message = consumer.recv(timeout)
+            return NatsMessage(message)
         except TimeoutError:
-            message = None
+            return None
         except Exception as exception:
             self.logger.warning(f"Unhandled exception when polling for NATS subject {consumer._sub.subject}: {exception}")
-            message = None
-        return NatsMessage(message)
+            return None
 
     def subscribe(self, channel: str, group_id: str = None):
         if channel not in self.subscribers.keys():

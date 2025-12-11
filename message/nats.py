@@ -11,4 +11,4 @@ class NatsMessage(Message):
             return "NATS Message Error"
 
     def value(self):
-        return self._message
+        return self._message.data.decode()
