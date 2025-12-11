@@ -49,8 +49,8 @@ class NatsClient(EventBroker):
     
     def close(self):
         # Unsubscribe from all subjects
-        for subject, subscriber in self.subscribers:
-            self.close_consumer(subject, subscriber)
+        for subject, subscriber in self.subscribers.items():
+            self.close_consumer(subject)
         self.logger.info("All NATS subscribers closed")
         # Delete all subjects
         del self.subjects
