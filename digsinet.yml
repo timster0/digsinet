@@ -155,17 +155,8 @@ apps:
   sec:
     module: "apps.sec"
 
-kafka:
+nats:
   host: "localhost"
-  port: 29092
-  topics:
-    num_partitions: 1
-    replication_factor: 1
-  offset:
-    reset_type: "earliest"
+  port: 4222
 
-rabbit:
-  host: "localhost"
-  port: 5672
-  username: "digsinet"
-  password: "testing123#!"
+
