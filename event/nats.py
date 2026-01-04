@@ -64,7 +64,7 @@ class NatsClient(EventBroker):
         if key in self.subscribers.keys():
             self.subscribers[key].unsubscribe()
             self.logger.info(f"Subscriber for NATS subject {key} closed.")
-            del self.subscribers[key]
+            # del self.subscribers[key]
         else:
             self.logger.warning(f"Unable to close subscriber for NATS subject {key}: Subscriber not found")
 
