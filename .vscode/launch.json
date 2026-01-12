@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "args": ["--debug", "--start"],
+            "args": ["--start"],
             "python": "${workspaceFolder}/.venv/bin/python",
             "name": "Debug digsinet.py",
             "type": "debugpy",
