@@ -42,6 +42,13 @@ def main():
     reconfigure_containers = "--reconfigure" if args.reconfigure else ""
 
     logger = logging.getLogger(__name__)
+    handler = logging.StreamHandler()
+    fmt = "%(asctime)s %(levelname)s pID(%(process)d) %(message)s"
+    datefmt = "%Y-%m-%d %H:%M:%S"
+    formatter = logging.Formatter(fmt=fmt, datefmt=datefmt)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.propagate = False
     # If the debug flag is set, the log level will be set to debug
     if args.debug:
         logger.setLevel(logging.DEBUG)
